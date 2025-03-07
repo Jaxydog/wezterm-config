@@ -19,13 +19,14 @@ module.edit_config = module.create(',', { 'CTRL' }, wezterm.action.SpawnCommandI
     cwd = wezterm.config_dir,
     args = { utility.on_windows() and 'nvim.exe' or 'nvim', '.' },
 }))
+module.toggle_fullscreen = module.create('F11', {}, wezterm.action.ToggleFullScreen)
 
 ---Applies configuration settings to the given base.
 ---
 ---@param base_config table The base configuration.
 function module.apply(base_config)
     utility.merge_into(base_config, {
-        keys = { module.edit_config },
+        keys = { module.edit_config, module.toggle_fullscreen },
     })
 end
 
