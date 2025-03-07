@@ -34,7 +34,7 @@ function module.apply(base_config)
 
     if utility.on_windows() then
         table.insert(launch_menu, module.create('New Tab (Command Prompt)', { 'cmd.exe' }))
-        table.insert(launch_menu, module.create('New Tab (Powershell)', { 'powershell.exe', '-NoIcon' }))
+        table.insert(launch_menu, module.create('New Tab (Powershell)', { 'powershell.exe', '-NoLogo' }))
     end
 
     utility.merge_into(base_config, {
