@@ -9,10 +9,13 @@ if wezterm.GLOBAL.attempted_repository_update == nil then
     elseif utility.repository.is_dirty() then
         utility.toast('skipping update', 'local repository branch modified', 5000)
     else
-        utility.repository.git({ 'pull' })
-        utility.toast('updated configuration', 'your configuration has been automatically updated', 5000)
+        local success = utility.repository.git({ 'pull', '--ff-only' })
 
-        wezterm.reload_configuration()
+        if success then
+            utility.toast('updated', 'your configuration has been updated - changes will apply on reload', 5000)
+        else
+            utility.toast('update failed', 'an error occurred during the configuration update')
+        end
     end
 end
 
