@@ -51,6 +51,24 @@ function module.has_wsl(distro)
     return success and stdout:find(distro) ~= nil
 end
 
+---Displays a notification toast.
+---@param title string The toast's title.
+---@param message string The toast's message.
+---@param timeout_milliseconds ?integer The toast's timeout duration in milliseconds.
+function module.toast(title, message, timeout_milliseconds)
+    local wezterm = require('wezterm')
+
+    wezterm.log_info('toast: ' .. title .. ' - ' .. message)
+
+    if not wezterm.gui or wezterm.gui.gui_windows then return end
+
+    local success, windows = pcall(wezterm.gui.gui_windows)
+
+    if success or (type(windows) == 'table' and windows[1] ~= nil) then
+        windows[1]:toast_notification(title, message, nil, timeout_milliseconds)
+    end
+end
+
 ---Merges the given table into the specified base table.
 ---
 ---@param base table The base table.
